@@ -1,9 +1,11 @@
+// Importe la bibliothèque Mongoose pour interagir avec MongoDB
 const mongoose = require('mongoose');
 
+// Définit le schéma d'un rapport de vente avec les propriétés commande, quantité, prix total et commentaire
 const rapportVenteSchema = mongoose.Schema({
     commande: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Commande',
+        type: mongoose.Schema.Types.ObjectId, // La propriété commande est une référence à un objet commande stocké dans une autre collection
+        ref: 'Commande', // La référence est faite à la collection Commande
         required: true
     },
     quantite: {
@@ -17,8 +19,8 @@ const rapportVenteSchema = mongoose.Schema({
     commentaire: {
         type: String,
         required: false
-    },
-
+    }
 });
 
+// Exporte le modèle 'RapportVente' créé à partir du schéma rapportVenteSchema pour qu'il puisse être utilisé dans d'autres fichiers
 module.exports = mongoose.model('RapportVente', rapportVenteSchema);
