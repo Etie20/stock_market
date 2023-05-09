@@ -14,11 +14,11 @@ const stockSchema = mongoose.Schema({
     },
     quantiteMinimale: {
         type: Number,
-        required: true
+        default: 1
     },
     datePeremption: {
         type: Date,
-        required: true
+        required: false
     },
     emplacement: {
         type: String,
