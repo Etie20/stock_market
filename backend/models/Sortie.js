@@ -13,6 +13,11 @@ const sortieSchema = mongoose.Schema({
         ref: 'Marchandise', // La référence est faite à la collection Marchandise
         required: true,
     },
+    entreprise: {
+        type: mongoose.Schema.Types.ObjectId, // La propriété marchandise est une référence à un objet marchandise stocké dans une autre collection
+        ref: 'Entreprise', // La référence est faite à la collection Marchandise
+        required: true,
+    },
     quantite: {
         type: Number,
         required: true
@@ -20,6 +25,10 @@ const sortieSchema = mongoose.Schema({
     dateSortie: {
         type: Date,
         default: Date.now // Par défaut, la propriété dateSortie est la date et l'heure actuelles
+    },
+    dateModification: {
+        type: Date,
+        required: false
     },
     justification: {
         type: String,

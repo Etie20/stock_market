@@ -1,7 +1,9 @@
 const Entreprise = require('../models/Entreprise');
+const Utilisateur = require('../models/Utilisateur');
+const Categorie = require('../models/Categorie');
 
-exports.updateEntrepriseInfo= (req, res, next) => {
-    Entreprise.updateOne({_id: req.params.id}, {...req.body, _id: req.params.id})
+exports.updateEntrepriseInfo = (req, res, next) => {
+    Entreprise.updateOne({_id: req.params.id}, {...req.body} )
         .then(() => res.status(200).json({ message: 'Entreprise modifié !'}))
         .catch(error => res.status(400).json({error}));
 };
@@ -22,4 +24,15 @@ exports.createEntreprise = (req, res, next) => {
         })
         .catch(error => res.status(500).json({ error }));
 };
+
+exports.deleteEntreprise = async (req, res, next) => {
+    Entreprise.deleteOne({ _id: req.params.id })
+        .then(() => res.status(200).json({ message: 'Entreprise supprimé avec succès!' }))
+        .catch(error => res.status(400).json({ error }));
+    Utilisateur.deleteOne({ entreprise: req.params.id });
+    Categorie.deleteOne({ entreprise: req.params.id });
+
+}
+
+
 

@@ -16,6 +16,14 @@ const panierItemSchema = mongoose.Schema({
     quantite: {
         type: Number,
         required: true
+    },
+    dateCreatiom: {
+        type: Date,
+        required: false
+    },
+    updatedDate: {
+        type: Date,
+        required: false
     }
 });
 

@@ -6,6 +6,24 @@ const categorieStock = mongoose.Schema({
     nom: {
         type: String,
         required: true
+    },
+    utilisateur: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Utilisateur',
+        required: true
+    },
+    entreprise: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Entreprise',
+        required: true
+    },
+    createdDate: {
+        type: Date,
+        required: false
+    },
+    updatedDate: {
+        type: Date,
+        required: false
     }
 });
 

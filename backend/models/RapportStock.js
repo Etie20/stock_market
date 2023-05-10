@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 
 // Définition du schéma de la collection 'rapportStock'
 const rapportStockSchema = mongoose.Schema({
+// L'entreprise qui insère la marchandise
+    entreprise: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Entreprise',
+        required: true
+    },
 // L'ID du stock associé au rapport
     stock: {
         type: mongoose.Schema.Types.ObjectId,

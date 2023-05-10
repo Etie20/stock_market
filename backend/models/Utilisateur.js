@@ -37,6 +37,14 @@ const utilisateurSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Entreprise',
         required: false
+    },
+    dateCreation: {
+        type: Date,
+        required: false
+    },
+    updatedDate: {
+        type: Date,
+        required: false
     }
 });
 

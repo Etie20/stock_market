@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 
 // Définit le schéma d'un rapport de vente avec les propriétés commande, quantité, prix total et commentaire
 const rapportVenteSchema = mongoose.Schema({
+// L'entreprise qui insère la marchandise
+    entreprise: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Entreprise',
+        required: true
+    },
     commande: {
         type: mongoose.Schema.Types.ObjectId, // La propriété commande est une référence à un objet commande stocké dans une autre collection
         ref: 'Commande', // La référence est faite à la collection Commande

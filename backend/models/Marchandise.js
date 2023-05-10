@@ -3,6 +3,13 @@ const mongoose = require('mongoose');
 
 // Définition du schéma de la collection 'marchandise'
 const marchandiseSchema = mongoose.Schema({
+
+// L'entreprise qui insère la marchandise
+    entreprise: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Entreprise',
+        required: true
+    },
 // Le nom de la marchandise
     nom: {
         type: String,

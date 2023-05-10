@@ -27,7 +27,8 @@ exports.signup = async (req, res, next) => {
                 role: req.body.role,
                 telephone: req.body.telephone,
                 adresse: req.body.adresse,
-                entreprise: entreprise._id
+                entreprise: entreprise._id,
+                dateCreation: Date.now()
             });
             await user.save()
                 .then(() => res.status(200).json({message: 'Utilisateur créé avec succès!'}))
@@ -49,7 +50,8 @@ exports.signupClient = async (req, res, next) => {
                 motDePasse: hash,
                 statut: "client",
                 telephone: req.body.telephone,
-                adresse: req.body.adresse
+                adresse: req.body.adresse,
+                dateCreation: Date.now()
             });
             await user.save()
                 .then(() => res.status(200).json({message: 'Utilisateur créé avec succès!'}))
@@ -86,13 +88,34 @@ exports.login = async (req, res, next) => {
         .catch(error => res.status(500).json({error}))
 };
 
-exports.getUsers = async (req, res, next) => {
-    await Utilisateur.find()
-        .then(utilisateurs => res.status(200).json(utilisateurs))
-        .catch(error => res.status(400).json({error}))
-        .catch(error => res.status(500).json({error}))
+
+exports.deleteUser = async (req, res, next) => {
+    Utilisateur.deleteOne({ _id: req.params.id })
+        .then(() => res.status(200).json({ message: "Utilisateur supprimé" }))
+        .catch(error => res.status(400).json({ error }))
 };
 
+exports.updateUsers = async (req, res, next) => {
+    Utilisateur.updateOne({ _id: req.params.id },
+        {
+            ...req.body,
+            updateDate: Date.now()
+        })
+        .then(() => res.status(200).json({ message: 'Utilisateur modifié !'}))
+        .catch(error => res.status(400).json({ error }));
+};
+
+exports.getUsersByEntrepriseId = async (req, res, next) => {
+    Utilisateur.find({ entreprise: req.params.id} )
+        .then(utilisateurs => res.status(200).json(utilisateurs))
+        .catch(error => res.status(400).json({ error }));
+}
+
+exports.getUserById = async (req, res, next) => {
+    Utilisateur.findById({ _id: req.params.id })
+        .then(utilisateur => res.status(200).json(utilisateur))
+        .catch(error => res.status(400).json({ error }));
+}
 
 
 

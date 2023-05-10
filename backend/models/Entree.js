@@ -13,6 +13,11 @@ const entreeSchema = mongoose.Schema({
         ref: 'Marchandise', // La référence est faite à la collection Marchandise
         require: true
     },
+    entreprise: {
+        type: mongoose.Schema.Types.ObjectId, // La propriété marchandise est une référence à un objet marchandise stocké dans une autre collection
+        ref: 'Entreprise', // La référence est faite à la collection Marchandise
+        require: true
+    },
     quantite: {
         type: Number,
         require: true
@@ -20,6 +25,15 @@ const entreeSchema = mongoose.Schema({
     dateEntree: {
         type: Date,
         default: Date.now // Par défaut, la propriété dateEntree est la date et l'heure actuelles
+    },
+    dateModification: {
+        type: Date,
+        required: false
+
+    },
+    validation: {
+        type: Boolean,
+        default: false
     }
 });
 

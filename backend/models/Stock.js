@@ -20,6 +20,14 @@ const stockSchema = mongoose.Schema({
         type: Date,
         required: false
     },
+    dateCreation: {
+        type: Date,
+        required: false
+    },
+    updatedDate: {
+        type: Date,
+        required: false
+    },
     emplacement: {
         type: String,
         required: false
