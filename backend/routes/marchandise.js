@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
+const marchandiseCtrl = require('../controllers/marchandise');
 const categorieCtrl = require('../controllers/categorie');
 const entreeCtrl = require('../controllers/entree');
 const sortieCtrl = require('../controllers/sortie');
+
+//route permettant de mettre à jour les informations d'une marchandise
+router.put("/:id", marchandiseCtrl.updateMarchandise);
 
 //route permettant de récupérer les catégories
 router.get("/categorie", categorieCtrl.getCategorie);
@@ -38,7 +42,7 @@ router.post("/entree/valider/:id", entreeCtrl.validerEntree);
 //route permettant de faire une sortie de marchandises
 router.post("/sortie", sortieCtrl.createSortie);
 
-//rroute permettant de valider une sortie de marchandise
+//route permettant de valider une sortie de marchandise
 router.post("/sortie/valider/:id", sortieCtrl.validerSortie);
 
 module.exports = router;

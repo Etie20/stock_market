@@ -17,6 +17,7 @@ mongoose.connect('mongodb+srv://admin:test1234@cluster0.unj3djg.mongodb.net/Stoc
 const utilisateurRoutes = require('./routes/utilisateurs');
 const entrepriseRoutes = require('./routes/entreprise');
 const marchandiseRoutes = require('./routes/marchandise');
+const marketplaceRoutes = require('./routes/marketplace');
 
 // Crée une instance d'application Express
 const app = express();
@@ -24,9 +25,10 @@ const app = express();
 // Utilise le middleware `express.json()` pour parser les requêtes HTTP avec des corps de requête JSON
 app.use(express.json());
 
-app.use('/api/auth', utilisateurRoutes);
-app.use('/api/company', entrepriseRoutes);
-app.use('/api/marchandise', marchandiseRoutes);
+app.use('/v1/users', utilisateurRoutes);
+app.use('/v2/company', entrepriseRoutes);
+app.use('/v3/product', marchandiseRoutes);
+app.use('/v4/marketplace', marketplaceRoutes);
 
 
 // Exporte l'application Express pour qu'elle puisse être utilisée dans d'autres fichiers

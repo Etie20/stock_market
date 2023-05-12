@@ -3,8 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start:dev": "nodemon",
+    "build": "npm install && rimraf ./build && tsc",
+    "start": "node build/server.js "
   },
   "keywords": [],
   "author": "",

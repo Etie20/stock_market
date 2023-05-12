@@ -9,6 +9,12 @@ const commandeSchema = mongoose.Schema({
         ref: 'Utilisateur',
         required: true
     },
+// L'ID de l'entreprise chez qui l'utilisateur a passé la commande
+    entreprise: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Entreprise',
+        required: true
+    },
 // Les articles commandés avec leur quantité respective
     articles: {
         type: [{
@@ -20,14 +26,19 @@ const commandeSchema = mongoose.Schema({
             quantite: {
                 type: Number,
                 required: true
-            }
+            },
         }],
         required: true
     },
 // Date de la commande
     date: {
         type: Date,
-        default: Date.now
+        required: false
+    },
+//Date de mise à jour de la commande
+    updatedDate: {
+        type: Date,
+        required: false
     },
 // Le coût total de la commande
     total: {

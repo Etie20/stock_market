@@ -16,13 +16,13 @@ router.put('/utilisateur/:id', utilisateurCtrl.updateUsers);
 router.delete('/utilisateur/:id', utilisateurCtrl.deleteUser);
 
 //route de creation d'un nouvel utilisateur pour la gestion de stock
-router.post('/signup', utilisateurCtrl.signup);
+router.post('/auth/signup', utilisateurCtrl.signup);
 
 //route de creation d'un nouvel utilisateur en tant que client
-router.post('/signupClient', utilisateurCtrl.signupClient);
+router.post('/auth/signupClient', utilisateurCtrl.signupClient);
 
 //route de connexion d'un utilisateur à la plateforme
-router.post('/login', utilisateurCtrl.login);
+router.post('/auth/login', utilisateurCtrl.login);
 
 module.exports = router;
 
