@@ -14,24 +14,25 @@ exports.signup = async (req, res) => {
             await entreprise.save();
         }
 
-        let utilisateur = await Utilisateur.findOne({ email: req.body.email, localisation: req.body.localisation});
+        let utilisateur = await Utilisateur.findOne({ email: req.body.email, adresse: req.body.adresse});
         if (!utilisateur) {
-            return res.status(409).json({ message: "L'utilisateur existe déjà"});
+            const hash = await bcrypt.hash(req.body.motDePasse, 10);
+            const user = new Utilisateur({
+                nom: req.body.nom,
+                email: req.body.email,
+                motDePasse: hash,
+                statut: req.body.statut,
+                role: req.body.role,
+                telephone: req.body.telephone,
+                adresse: req.body.adresse,
+                entreprise: entreprise._id,
+                dateCreation: Date.now()
+            });
+            await user.save();
+            res.status(200).json({message: 'Utilisateur créé avec succès!'});
         }
-        const hash = await bcrypt.hash(req.body.motDePasse, 10);
-                const user = new Utilisateur({
-                    nom: req.body.nom,
-                    email: req.body.email,
-                    motDePasse: hash,
-                    statut: req.body.statut,
-                    role: req.body.role,
-                    telephone: req.body.telephone,
-                    adresse: req.body.adresse,
-                    entreprise: entreprise._id,
-                    dateCreation: Date.now()
-                });
-                await user.save();
-                res.status(200).json({message: 'Utilisateur créé avec succès!'});
+        return res.status(409).json({ message: "L'utilisateur existe déjà"});
+
 
     } catch(error) {
             res.status(400).json({ error: "Invalid request body" });
