@@ -13,7 +13,9 @@ exports.signup = async (req, res) => {
             entreprise = new Entreprise({ nom: req.body.nomEntreprise, localisation: req.body.localisation });
             await entreprise.save();
         } else {
-            if (req.body.statut === 'superAdmin') {
+            const statut = req.body.statut;
+
+            if (statut === "superAdmin") {
                 return res.status(409).json("L'entreprise existe déjà!");
             }
         }
@@ -38,7 +40,7 @@ exports.signup = async (req, res) => {
 
 
     } catch(error) {
-            res.status(400).json({ message: "Invalid request body" });
+            return res.status(400).json({ message: "Invalid request body" });
     }
 
 };
@@ -72,17 +74,18 @@ exports.login = async (req, res) => {
     try {
         const utilisateur = await Utilisateur.findOne({email: req.body.email})
         if (!utilisateur) {
-            return res.status(401).json({error: 'Utilisateur non trouvé !'})
+            return res.status(401).json({
+                success: 0,
+                error: 'Utilisateur non trouvé !'});
         }
         const valid = bcrypt.compare(req.body.motDePasse, utilisateur.motDePasse)
         if (!valid) {
-            return res.status(401).json({error: 'mot de passe incorrect !'})
+            return res.status(401).json({
+                success: 0,
+                error: 'mot de passe incorrect !'});
         }
         res.status(200).json({
-            userId: utilisateur._id,
-            statut: utilisateur.statut,
-            role: utilisateur.role,
-            companyId: utilisateur.entreprise,
+            success: 1,
             token: jwt.sign(
                 {
                     userId: utilisateur._id,
@@ -95,7 +98,9 @@ exports.login = async (req, res) => {
             ),
         });
     } catch (error) {
-        res.status(400).json({error: "Invalid request body"});
+        res.status(400).json({
+            succes: 0,
+            error: "Invalid request body"});
     }
 };
 
