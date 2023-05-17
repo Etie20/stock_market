@@ -12,9 +12,12 @@ exports.signup = async (req, res) => {
         if (!entreprise) {
             entreprise = new Entreprise({ nom: req.body.nomEntreprise, localisation: req.body.localisation });
             await entreprise.save();
+        } else {
+            if (req.body.statut === 'superAdmin') {
+                return res.status(409).json("L'entreprise existe déjà!");
+            }
         }
-
-        let utilisateur = await Utilisateur.findOne({ email: req.body.email, adresse: req.body.adresse});
+        let utilisateur = await Utilisateur.findOne({ email: req.body.email });
         if (!utilisateur) {
             const hash = await bcrypt.hash(req.body.motDePasse, 10);
             const user = new Utilisateur({
@@ -35,7 +38,7 @@ exports.signup = async (req, res) => {
 
 
     } catch(error) {
-            res.status(400).json({ error: "Invalid request body" });
+            res.status(400).json({ message: "Invalid request body" });
     }
 
 };
