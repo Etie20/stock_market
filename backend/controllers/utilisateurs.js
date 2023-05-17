@@ -16,7 +16,7 @@ exports.signup = async (req, res) => {
             const statut = req.body.statut;
 
             if (statut === "superAdmin") {
-                return res.status(409).json("L'entreprise existe déjà!");
+                return res.status(409).json({message: "L'entreprise existe déjà!"});
             }
         }
         let utilisateur = await Utilisateur.findOne({ email: req.body.email });
