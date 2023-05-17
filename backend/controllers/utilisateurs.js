@@ -79,13 +79,13 @@ exports.login = async (req, res) => {
         if (!utilisateur) {
             return res.status(401).json({
                 success: 0,
-                error: 'Utilisateur non trouvé !'});
+                message: 'Utilisateur non trouvé !'});
         }
         const valid = bcrypt.compare(req.body.motDePasse, utilisateur.motDePasse)
         if (!valid) {
             return res.status(401).json({
                 success: 0,
-                error: 'mot de passe incorrect !'});
+                message: 'mot de passe incorrect !'});
         }
         res.status(200).json({
             success: 1,
@@ -103,7 +103,7 @@ exports.login = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             succes: 0,
-            error: "Invalid request body"});
+            message: "Invalid request body"});
     }
 };
 
@@ -113,7 +113,7 @@ exports.deleteUser = async (req, res) => {
         await Utilisateur.deleteOne({ _id: req.params.id });
         res.status(200).json({ message: "Utilisateur supprimé" });
     } catch (error) {
-        res.status(400).json({ error: "Invalid request body" });
+        res.status(400).json({ message: "Invalid request body" });
     }
 };
 
@@ -126,7 +126,7 @@ exports.updateUsers = async (req, res) => {
             })
             res.status(200).json({ message: 'Utilisateur modifié !'});
     } catch (error) {
-        res.status(400).json({ error: "Invalid request body" });
+        res.status(400).json({ message: "Invalid request body" });
     }
 };
 
@@ -135,7 +135,7 @@ exports.getUsersByEntrepriseId = async (req, res) => {
         const utilisateurs = await Utilisateur.find({ entreprise: req.params.id} );
         res.status(200).json(utilisateurs);
     } catch (error) {
-        res.status(400).json({ error: "Invalid request body" });
+        res.status(400).json({ message: "Invalid request body" });
     }
     
 }
@@ -145,7 +145,7 @@ exports.getUserById = async (req, res) => {
         const utilisateur = await Utilisateur.findById({ _id: req.params.id });
         res.status(200).json(utilisateur);
     } catch (error) {
-        res.status(400).json({ error: "Invalid request body" });
+        res.status(400).json({ message: "Invalid request body" });
     }
 }
 
