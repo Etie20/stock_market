@@ -7,16 +7,19 @@ exports.signup = async (req, res) => {
     try {
         // Vérifier si l'entreprise existe déjà dans la base de données
         let entreprise = await Entreprise.findOne({nom: req.body.nomEntreprise, localisation: req.body.localisation});
-
+        let entrepriseId;
         // Si l'entreprise n'existe pas, la créer
         if (!entreprise) {
             entreprise = new Entreprise({ nom: req.body.nomEntreprise, localisation: req.body.localisation });
             await entreprise.save();
+            entrepriseId = entreprise._id;
         } else {
+            //Verifier le statut de la personne est inscrit
             const statut = req.body.statut;
-
             if (statut === "superAdmin") {
                 return res.status(409).json({message: "L'entreprise existe déjà!"});
+            } else {
+                entrepriseId = req.body.entreprise;
             }
         }
         let utilisateur = await Utilisateur.findOne({ email: req.body.email });
@@ -30,7 +33,7 @@ exports.signup = async (req, res) => {
                 role: req.body.role,
                 telephone: req.body.telephone,
                 adresse: req.body.adresse,
-                entreprise: entreprise._id,
+                entreprise: entrepriseId,
                 dateCreation: Date.now()
             });
             await user.save();
@@ -56,7 +59,7 @@ exports.signupClient = async (req, res) => {
             nom: req.body.nom,
             email: req.body.email,
             motDePasse: hash,
-            statut: "client",
+            statut: 'client',
             telephone: req.body.telephone,
             adresse: req.body.adresse,
             dateCreation: Date.now()
@@ -64,7 +67,7 @@ exports.signupClient = async (req, res) => {
         await user.save();
         res.status(200).json({message: 'Utilisateur créé avec succès!'});
     } catch (error) {
-        res.status(400).json({error: "Invalid request body"});
+        res.status(400).json({message: "Invalid request body"});
     }
 };
 
