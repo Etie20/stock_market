@@ -77,13 +77,13 @@ exports.login = async (req, res) => {
     try {
         const utilisateur = await Utilisateur.findOne({email: req.body.email})
         if (!utilisateur) {
-            return res.status(401).json({
+            res.status(401).json({
                 success: 0,
                 message: 'Utilisateur non trouvé !'});
         }
         const valid = bcrypt.compare(req.body.motDePasse, utilisateur.motDePasse)
         if (!valid) {
-            return res.status(401).json({
+            res.status(401).json({
                 success: 0,
                 message: 'mot de passe incorrect !'});
         }
@@ -91,6 +91,7 @@ exports.login = async (req, res) => {
             success: 1,
             token: jwt.sign(
                 {
+                    username: utilisateur.nom,
                     userId: utilisateur._id,
                     statut: utilisateur.statut,
                     role: utilisateur.role,
@@ -102,7 +103,7 @@ exports.login = async (req, res) => {
         });
     } catch (error) {
         res.status(400).json({
-            succes: 0,
+            success: 0,
             message: "Invalid request body"});
     }
 };
