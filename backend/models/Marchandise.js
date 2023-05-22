@@ -28,7 +28,7 @@ const marchandiseSchema = mongoose.Schema({
 // L'URL de l'image de la marchandise
     image: {
         type: String,
-        require: true
+        require: false
     },
 // Les informations sur le prix de la marchandise
     prix: {
