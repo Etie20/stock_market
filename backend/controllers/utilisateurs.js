@@ -81,7 +81,7 @@ exports.login = async (req, res) => {
                 success: 0,
                 message: 'Utilisateur non trouvé !'});
         }
-        const valid = bcrypt.compare(req.body.motDePasse, utilisateur.motDePasse)
+        let valid = bcrypt.compare(req.body.motDePasse, utilisateur.motDePasse);
         if (!valid) {
             return res.status(401).json({
                 success: 0,
