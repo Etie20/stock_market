@@ -7,7 +7,8 @@ exports.createEntree = async (req, res) => {
         let marchandise = await Marchandise.findOne({ nom: req.body.nom } );
         if (!marchandise) {
             marchandise = new Marchandise({
-                ...req.body
+                ...req.body,
+                image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
             });
             await marchandise.save();
         }
