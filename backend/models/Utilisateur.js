@@ -27,11 +27,11 @@ const utilisateurSchema = mongoose.Schema({
     },
     telephone: {
         type: String,
-        required: true
+        required: false
     },
     adresse: {
         type: String,
-        required: true
+        required: false
     },
     entreprise: {
         type: mongoose.Schema.Types.ObjectId,
