@@ -84,13 +84,15 @@ exports.login = async (req, res) => {
         }
         return res.status(200).json({
             success: 1,
+            companyLocalisation: utilisateur.entreprise.localisation,
             token: jwt.sign(
                 {
                     username: utilisateur.nom,
                     userId: utilisateur._id,
                     statut: utilisateur.statut,
                     role: utilisateur.role,
-                    companyId: utilisateur.entreprise
+                    companyId: utilisateur.entreprise,
+                    companyLocalisation: utilisateur.entreprise.localisation
                 },
                 'RANDOM_TOKEN_SECRET',
                 {expiresIn: '48h'}
