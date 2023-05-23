@@ -70,7 +70,7 @@ exports.signupClient = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        let utilisateur = await Utilisateur.findOne({ email: req.body.email });
+        let utilisateur = await Utilisateur.findOne({ email: req.body.email }).populate('entreprise');
         if (!utilisateur) {
             return res.status(401).json({
                 success: 0,
