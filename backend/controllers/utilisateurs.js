@@ -84,7 +84,6 @@ exports.login = async (req, res) => {
         }
         return res.status(200).json({
             success: 1,
-            companyLocalisation: utilisateur.entreprise.localisation,
             token: jwt.sign(
                 {
                     username: utilisateur.nom,
@@ -92,7 +91,8 @@ exports.login = async (req, res) => {
                     statut: utilisateur.statut,
                     role: utilisateur.role,
                     companyId: utilisateur.entreprise,
-                    companyLocalisation: utilisateur.entreprise.localisation
+                    companyLocalisation: utilisateur.entreprise.localisation,
+                    companyName: utilisateur.entreprise.nom
                 },
                 'RANDOM_TOKEN_SECRET',
                 {expiresIn: '48h'}
