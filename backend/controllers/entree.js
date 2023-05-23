@@ -8,13 +8,13 @@ exports.createEntree = async (req, res) => {
         if (!marchandise) {
             marchandise = new Marchandise({
                 ...req.body,
-                image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                // image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
             });
             await marchandise.save();
         }
         const entree = new Entree ({
-            utilisateur: req.body.userId,
-            marchandise: marchandise.marchandiseId,
+            utilisateur: req.body.utilisateur,
+            marchandise: marchandise._id,
             entreprise: req.body.entreprise,
             quantite: req.body.quantite.toNumber(),
             dateCreation: Date.now()

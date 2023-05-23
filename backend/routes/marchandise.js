@@ -7,7 +7,6 @@ const entreeCtrl = require('../controllers/entree');
 const sortieCtrl = require('../controllers/sortie');
 
 const multer = require('../middleware/multer-config');
-const auth = require('../middleware/auth');
 
 //route permettant de mettre à jour les informations d'une marchandise
 router.put("/:id", marchandiseCtrl.updateMarchandise);
@@ -25,7 +24,7 @@ router.put("/categorie/:id", categorieCtrl.updateCategorie);
 router.delete("/categorie/:id", categorieCtrl.deleteCategorie);
 
 //route permettant de faire une entrée de marchandises
-router.post("/entree",multer, entreeCtrl.createEntree);
+router.post("/entree",entreeCtrl.createEntree);
 
 //route pour mettre à jour une entrée de marchandises
 router.put("/entree/:id", entreeCtrl.updateEntree);
