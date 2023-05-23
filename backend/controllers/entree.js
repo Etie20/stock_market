@@ -15,7 +15,7 @@ exports.createEntree = async (req, res) => {
             utilisateur: req.body.userId,
             marchandise: marchandise.marchandiseId,
             entreprise: req.body.entreprise,
-            quantite: req.body.quantite,
+            quantite: req.body.quantite.toNumber(),
             dateCreation: Date.now()
         });
         await entree.save();
