@@ -6,12 +6,12 @@ const fs = require('fs');
 
 exports.createEntree = async (req, res) => {
     try {
-        const src = fs.createReadStream(req.file.path);
-        const dest = fs.createWriteStream('images/' + req.file.originalname);
-        await src.pipe(dest);
-        await src.on('end', function() {
-            fs.unlinkSync(req.file.path);
-        });
+        // const src = fs.createReadStream(req.file.path);
+        // const dest = fs.createWriteStream('images/' + req.file.originalname);
+        // await src.pipe(dest);
+        // await src.on('end', function() {
+        //     fs.unlinkSync(req.file.path);
+        // });
 
         let marchandise = await Marchandise.findOne({ nom: req.body.nom } );
         let quantite = Number(req.body.quantite);
@@ -23,7 +23,7 @@ exports.createEntree = async (req, res) => {
                 qr: req.body.qr,
                 description: req.body.description,
                 categorie: req.body.categorie,
-                image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                image: `https://stocket-market-api.onrender.com/images/${req.file.filename}`
             });
             await marchandise.save();
         }
