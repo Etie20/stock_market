@@ -9,7 +9,7 @@ const multer = require("multer");
 
 //const multer = require('../middleware/multer-config');
 
-const upload = multer()
+const upload = multer();
 
 //route permettant de mettre à jour les informations d'une marchandise
 router.put("/:id", marchandiseCtrl.updateMarchandise);
@@ -27,7 +27,7 @@ router.put("/categorie/:id", categorieCtrl.updateCategorie);
 router.delete("/categorie/:id", categorieCtrl.deleteCategorie);
 
 //route permettant de faire une entrée de marchandises
-router.post("/entree", upload, entreeCtrl.createEntree);
+router.post("/entree", upload.none(), entreeCtrl.createEntree);
 
 //route pour mettre à jour une entrée de marchandises
 router.put("/entree/:id", entreeCtrl.updateEntree);
