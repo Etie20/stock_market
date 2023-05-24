@@ -23,7 +23,7 @@ exports.createEntree = async (req, res) => {
                 qr: req.body.qr,
                 description: req.body.description,
                 categorie: req.body.categorie,
-                image: 'images/' + req.file.originalname,
+                image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
             });
             await marchandise.save();
         }
