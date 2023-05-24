@@ -26,8 +26,13 @@ exports.signup = async (req, res) => {
         if (!utilisateur) {
             const hash = await bcrypt.hash(req.body.motDePasse, 10);
             const user = new Utilisateur({
-                ...req.body,
+                nom: req.body.nom,
+                email: req.body.email,
                 motDePasse: hash,
+                statut: req.body.statut,
+                role: req.body.role,
+                telephone: req.body.telephone,
+                adresse: req.body.adresse,
                 entreprise: entrepriseId,
                 dateCreation: Date.now()
             });
