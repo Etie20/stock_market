@@ -24,7 +24,7 @@ const entreeSchema = mongoose.Schema({
     },
     dateEntree: {
         type: Date,
-        default: Date.now // Par défaut, la propriété dateEntree est la date et l'heure actuelles
+        required: false
     },
     dateModification: {
         type: Date,

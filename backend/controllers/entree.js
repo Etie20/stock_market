@@ -7,8 +7,12 @@ exports.createEntree = async (req, res) => {
         let marchandise = await Marchandise.findOne({ nom: req.body.nom } );
         if (!marchandise) {
             marchandise = new Marchandise({
-                ...req.body,
-                // image: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`
+                entreprise: req.body.entreprise,
+                nom: req.body.nom,
+                qr: req.body.qr,
+                description: req.body.description,
+                image: req.body.image,
+                categorie: req.body.categorie
             });
             await marchandise.save();
         }
@@ -17,28 +21,29 @@ exports.createEntree = async (req, res) => {
             marchandise: marchandise._id,
             entreprise: req.body.entreprise,
             quantite: req.body.quantite.toNumber(),
-            dateCreation: Date.now()
+            dateEntree: Date.now()
         });
         await entree.save();
-        res.status(200).json({ success: 1, message: "Entrée crée!" })
+        res.status(200).json({ success: 1, message: "Entrée crée!" });
+        let stock = await Stock.findOne({ marchandise: marchandise._id });
+        if (!stock){
+            const stock = new Stock({
+                marchandise: marchandise._id,
+                quantiteTotale: req.body.quantite.toNumber()
+            });
+            await stock.save();
+        }
+        await Stock.updateOne({ marchandise: marchandise._id }, {
+            $inc: { quantiteTotale: req.body.quantite.toNumber() } ,
+            marchandise: marchandise._id
+        });
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
     }
-    let stock = await Stock.findOne({ marchandise: marchandise._id });
-    if (!stock){
-        const stock = new Stock({
-            marchandise: marchandise._id,
-            quantiteTotale: req.body.quantite
-        });
-        await stock.save();
-    }
-    await Stock.updateOne({ marchandise: marchandise._id }, {
-        $inc: { quantiteTotale: req.body.quantite } ,
-        marchandise: marchandise._id
-    });
+
 };
 
-exports.validerEntree = async (req, res, next) => {
+exports.validerEntree = async (req, res) => {
     try{
         const entreeId = req.params.id;
 
