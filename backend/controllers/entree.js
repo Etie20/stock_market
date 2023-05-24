@@ -5,6 +5,8 @@ const Stock = require('../models/Stock');
 exports.createEntree = async (req, res) => {
     try {
         let marchandise = await Marchandise.findOne({ nom: req.body.nom } );
+        let quantite = Number(req.body.quantite);
+
         if (!marchandise) {
             marchandise = new Marchandise({
                 entreprise: req.body.entreprise,
@@ -20,7 +22,7 @@ exports.createEntree = async (req, res) => {
             utilisateur: req.body.utilisateur,
             marchandise: marchandise._id,
             entreprise: req.body.entreprise,
-            quantite: req.body.quantite,
+            quantite: quantite,
             dateEntree: Date.now()
         });
         await entree.save();
@@ -29,12 +31,12 @@ exports.createEntree = async (req, res) => {
         if (!stock){
             const stock = new Stock({
                 marchandise: marchandise._id,
-                quantiteTotale: req.body.quantite.toNumber()
+                quantiteTotale: quantite
             });
             await stock.save();
         }
         await Stock.updateOne({ marchandise: marchandise._id }, {
-            $inc: { quantiteTotale: req.body.quantite.toNumber() } ,
+            $inc: { quantiteTotale: quantite } ,
             marchandise: marchandise._id
         });
     } catch (error) {
