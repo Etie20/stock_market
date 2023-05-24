@@ -6,7 +6,6 @@ const fs = require('fs');
 
 exports.createEntree = async (req, res) => {
     try {
-        console.log("Received file" + req.file.originalname);
         const src = fs.createReadStream(req.file.path);
         const dest = fs.createWriteStream('images/' + req.file.originalname);
         src.pipe(dest);
