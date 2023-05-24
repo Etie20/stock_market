@@ -8,8 +8,8 @@ exports.createEntree = async (req, res) => {
     try {
         const src = fs.createReadStream(req.file.path);
         const dest = fs.createWriteStream('images/' + req.file.originalname);
-        src.pipe(dest);
-        src.on('end', function() {
+        await src.pipe(dest);
+        await src.on('end', function() {
             fs.unlinkSync(req.file.path);
         });
 
@@ -23,7 +23,7 @@ exports.createEntree = async (req, res) => {
                 qr: req.body.qr,
                 description: req.body.description,
                 categorie: req.body.categorie,
-                image: src,
+                image: 'images/' + req.file.originalname,
             });
             await marchandise.save();
         }
