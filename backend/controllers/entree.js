@@ -2,8 +2,18 @@ const Entree = require('../models/Entree');
 const Marchandise = require('../models/Marchandise');
 const Stock = require('../models/Stock');
 
+const fs = require('fs');
+
 exports.createEntree = async (req, res) => {
     try {
+        console.log("Received file" + req.file.originalname);
+        const src = fs.createReadStream(req.file.path);
+        const dest = fs.createWriteStream('images/' + req.file.originalname);
+        src.pipe(dest);
+        src.on('end', function() {
+            fs.unlinkSync(req.file.path);
+        });
+
         let marchandise = await Marchandise.findOne({ nom: req.body.nom } );
         let quantite = Number(req.body.quantite);
 
@@ -14,7 +24,7 @@ exports.createEntree = async (req, res) => {
                 qr: req.body.qr,
                 description: req.body.description,
                 categorie: req.body.categorie,
-                //image: req.file.filename,
+                image: req.file.originalname,
             });
             await marchandise.save();
         }

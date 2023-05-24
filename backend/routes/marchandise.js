@@ -5,11 +5,13 @@ const marchandiseCtrl = require('../controllers/marchandise');
 const categorieCtrl = require('../controllers/categorie');
 const entreeCtrl = require('../controllers/entree');
 const sortieCtrl = require('../controllers/sortie');
-const multer = require("multer");
 
 //const multer = require('../middleware/multer-config');
 
-const upload = multer();
+const multer  = require('multer')
+
+const upload = multer({ dest: 'images/' })
+
 
 //route permettant de mettre à jour les informations d'une marchandise
 router.put("/:id", marchandiseCtrl.updateMarchandise);
@@ -27,7 +29,7 @@ router.put("/categorie/:id", categorieCtrl.updateCategorie);
 router.delete("/categorie/:id", categorieCtrl.deleteCategorie);
 
 //route permettant de faire une entrée de marchandises
-router.post("/entree", upload.none(), entreeCtrl.createEntree);
+router.post("/entree", upload.single("image"), entreeCtrl.createEntree);
 
 //route pour mettre à jour une entrée de marchandises
 router.put("/entree/:id", entreeCtrl.updateEntree);
