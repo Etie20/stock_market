@@ -38,6 +38,10 @@ const utilisateurSchema = mongoose.Schema({
         ref: 'Entreprise',
         required: false
     },
+    image: {
+      type: String,
+      required: false
+    },
     dateCreation: {
         type: Date,
         required: false

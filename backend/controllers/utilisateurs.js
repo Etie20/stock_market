@@ -10,7 +10,10 @@ exports.signup = async (req, res) => {
         let entrepriseId;
         // Si l'entreprise n'existe pas, la créer
         if (!entreprise) {
-            entreprise = new Entreprise({ nom: req.body.nomEntreprise, localisation: req.body.localisation });
+            entreprise = new Entreprise({
+                nom: req.body.nomEntreprise,
+                localisation: req.body.localisation
+            });
             await entreprise.save();
             entrepriseId = entreprise._id;
         } else {
@@ -34,13 +37,13 @@ exports.signup = async (req, res) => {
                 telephone: req.body.telephone,
                 adresse: req.body.adresse,
                 entreprise: entrepriseId,
+                image: req.body.image,
                 dateCreation: Date.now()
             });
             await user.save();
-            res.status(200).json({message: 'Utilisateur créé avec succès!'});
+            return res.status(200).json({message: 'Utilisateur créé avec succès!'});
         }
         return res.status(409).json({ message: "L'utilisateur existe déjà"});
-
 
     } catch(error) {
             return res.status(400).json({ message: "Invalid request body" });
@@ -62,6 +65,7 @@ exports.signupClient = async (req, res) => {
             statut: 'client',
             telephone: req.body.telephone,
             adresse: req.body.adresse,
+            image: req.body.image,
             dateCreation: Date.now()
         });
         await user.save();

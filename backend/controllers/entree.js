@@ -2,8 +2,6 @@ const Entree = require('../models/Entree');
 const Marchandise = require('../models/Marchandise');
 const Stock = require('../models/Stock');
 
-const fs = require('fs');
-
 exports.createEntree = async (req, res) => {
     try {
 
