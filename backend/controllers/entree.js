@@ -91,9 +91,9 @@ exports.deleteEntree = async (req, res) => {
     }
 };
 
-exports.getEntreeByEntrepriseId = async (req, res, next) => {
+exports.getEntreeByEntrepriseId = async (req, res) => {
     try {
-        const entrees = await Entree.find({ entreprise: req.params._id });
+        const entrees = await Entree.find({ entreprise: req.params._id }).populate('marchandise');
             res.status(200).json(entrees);
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
