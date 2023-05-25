@@ -93,7 +93,7 @@ exports.deleteEntree = async (req, res) => {
 
 exports.getEntreeByEntrepriseId = async (req, res) => {
     try {
-        const entrees = await Entree.find({ entreprise: req.params._id }).populate('marchandise');
+        const entrees = await Entree.find({ entreprise: req.params._id });
             res.status(200).json(entrees);
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
@@ -102,7 +102,7 @@ exports.getEntreeByEntrepriseId = async (req, res) => {
 
 exports.getEntreeById = async (req, res) => {
     try {
-        const entree = await Entree.findById({ _id: req.params.id });
+        const entree = await Entree.findById({ _id: req.params.id }).populate('marchandise');
            res.status(200).json(entree);
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
