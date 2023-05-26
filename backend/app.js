@@ -30,6 +30,13 @@ app.use('/v2/company', entrepriseRoutes);
 app.use('/v3/product', marchandiseRoutes);
 app.use('/v4/marketplace', marketplaceRoutes);
 
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
+    next();
+});
+
 
 // Exporte l'application Express pour qu'elle puisse être utilisée dans d'autres fichiers
 module.exports = app;
