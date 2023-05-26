@@ -85,7 +85,7 @@ exports.updateEntree = async (req, res) => {
 exports.deleteEntree = async (req, res) => {
     try {
         await Entree.deleteOne({ _id: req.params.id });
-            res.status(200).json({ success: 1, message: 'Entrée supprimé!'});
+        res.status(200).json({ success: 1, message: 'Entrée supprimé!'});
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
     }
@@ -93,11 +93,8 @@ exports.deleteEntree = async (req, res) => {
 
 exports.getEntreeByEntrepriseId = async (req, res) => {
     try {
-        const entrees = await Entree.findById({ entreprise: req.params._id })
-            .lean()
-            .populate('utilisateur')
-            .populate('marchandise');
-            res.status(200).json(entrees);
+        const entrees = await Entree.find({ entreprise: req.params._id });
+        res.status(200).json(entrees);
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
     }
@@ -105,8 +102,8 @@ exports.getEntreeByEntrepriseId = async (req, res) => {
 
 exports.getEntreeById = async (req, res) => {
     try {
-        const entree = await Entree.findById({ _id: req.params.id }).populate('marchandise');
-           res.status(200).json(entree);
+        const entree = await Entree.findById({ _id: req.params.id }).populate('marchandise').populate('utilisateur');
+        res.status(200).json(entree);
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
     }
