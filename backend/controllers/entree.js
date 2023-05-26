@@ -93,7 +93,9 @@ exports.deleteEntree = async (req, res) => {
 
 exports.getEntreeByEntrepriseId = async (req, res) => {
     try {
-        const entrees = await Entree.find({ entreprise: req.params._id }).populate('utilisateur')
+        const entrees = await Entree.find({ entreprise: req.params._id })
+            .lean()
+            .populate('utilisateur')
             .populate('marchandise');
             res.status(200).json(entrees);
     } catch (error) {
