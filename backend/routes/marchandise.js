@@ -39,6 +39,9 @@ router.get("/entree/:id", entreeCtrl.getEntreeById);
 //route pour valider l'entrée d'un produit
 router.post("/entree/valider/:id", entreeCtrl.validerEntree);
 
+//route pour afficher toutes les entrées faites par une entreprise
+router.get("/sortie/entreprise/:id", sortieCtrl.getSortieByEntrepriseId);
+
 //route permettant de faire une sortie de marchandises
 router.post("/sortie", sortieCtrl.createSortie);
 

@@ -62,9 +62,11 @@ exports.updateSortie = async (req, res) => {
     }
 };
 
-exports.getSortieByEntrepriseId = async (req, res, next) => {
+exports.getSortieByEntrepriseId = async (req, res) => {
     try {
-        const sorties = await Sortie.find({ entreprise: req.params.id} );
+        const sorties = await Sortie.find({ entreprise: req.params.id} )
+            .populate('marchandise')
+            .populate('utilisateur');
         res.status(200).json(sorties);
     } catch (error) {
         res.status(400).json({error: "Invalid request body"});
