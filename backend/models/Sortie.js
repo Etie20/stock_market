@@ -24,7 +24,7 @@ const sortieSchema = mongoose.Schema({
     },
     dateSortie: {
         type: Date,
-        default: Date.now // Par défaut, la propriété dateSortie est la date et l'heure actuelles
+        default: false // Par défaut, la propriété dateSortie est la date et l'heure actuelles
     },
     dateModification: {
         type: Date,

@@ -98,7 +98,7 @@ exports.getEntreeByEntrepriseId = async (req, res) => {
             .populate('utilisateur');
         res.status(200).json(entrees);
     } catch (error) {
-        res.status(400).json({ success: 0, message: "Invalid request body"});
+        res.status(400).json({ success: 0, message: "Invalid request body" });
     }
 };
 

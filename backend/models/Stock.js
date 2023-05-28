@@ -26,7 +26,7 @@ const stockSchema = mongoose.Schema({
     },
     updatedDate: {
         type: Date,
-        required: false
+        required: false  
     },
     emplacement: {
         type: String,

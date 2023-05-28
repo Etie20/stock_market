@@ -8,7 +8,8 @@ exports.createSortie = async (req, res) => {
             marchandise: req.body.marchandiseId,
             quantite: req.body.quantite,
             justification: req.body.justification,
-            image: req.body.image
+            image: req.body.image,
+            dateSortie: Date.now()
         });
         await sortie.save();
         res.status(200).json({ message: "Sortie crée!" });
