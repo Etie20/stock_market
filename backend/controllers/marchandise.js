@@ -13,7 +13,7 @@ exports.updateMarchandise = async (req, res) => {
 
 exports.getAllMarchandiseByEntrepriseId = async (req, res) => {
     try {
-        const marchandises = await Marchandise.find({ entreprise: req.params.entreprise})
+        const marchandises = await Marchandise.find({ entreprise: req.params.id})
             .populate('entreprise')
             .populate('categorie');
         res.status(200).json(marchandises);

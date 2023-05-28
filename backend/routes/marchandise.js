@@ -6,7 +6,7 @@ const categorieCtrl = require('../controllers/categorie');
 const entreeCtrl = require('../controllers/entree');
 const sortieCtrl = require('../controllers/sortie');
 
-//route permettant d'afficher tous les marchandises d'une entreprise
+//route permettant d'afficher toutes les marchandises d'une entreprise
 router.get("/entreprise/:id", marchandiseCtrl.getAllMarchandiseByEntrepriseId);
 
 //route permettant de mettre à jour les informations d'une marchandise
