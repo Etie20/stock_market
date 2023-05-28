@@ -8,6 +8,11 @@ const stockSchema = mongoose.Schema({
         ref: 'Marchandise', // La référence est faite à la collection Marchandise
         required: true
     },
+    entreprise: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Entreprise',
+        required: true
+    },
     quantiteTotale: {
         type: Number,
         required: true
