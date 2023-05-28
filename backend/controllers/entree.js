@@ -32,13 +32,16 @@ exports.createEntree = async (req, res) => {
         if (!stock){
             const stock = new Stock({
                 marchandise: marchandise._id,
-                quantiteTotale: quantite
+                quantiteTotale: quantite,
+                entreprise: req.body.entreprise,
+                dateCreation: Date.now()
             });
             await stock.save();
         }
         await Stock.updateOne({ marchandise: marchandise._id }, {
             $inc: { quantiteTotale: quantite } ,
-            marchandise: marchandise._id
+            marchandise: marchandise._id,
+            updatedDate: Date.now()
         });
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
@@ -59,7 +62,7 @@ exports.validerEntree = async (req, res) => {
             entrees.marchandise._id,
             {
                 updatedDate: Date.now(),
-                $inc: {quantiteTotale: entrees.quantite}
+                $inc: {quantiteTotale: entrees.quantite},
             },
             {
                 new: true

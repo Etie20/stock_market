@@ -55,7 +55,8 @@ exports.deleteSortie = async (req, res) => {
 exports.updateSortie = async (req, res) => {
     try {
         await Sortie.updateOne({ _id: req.params.id }, {
-            ...req.body
+            ...req.body,
+            updatedDate: Date.now()
         });
         res.status(200).json({ message: 'Sortie mise à jour!'});
     } catch (error) {
