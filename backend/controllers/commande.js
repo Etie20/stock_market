@@ -1,6 +1,7 @@
 const Commande = require('../models/Commande');
 const PanierItem = require('../models/PanierItem');
 const Utilisateur = require('../models/Utilisateur');
+const Compte = require('../models/Compte');
 
 exports.createCommande = async (req, res) => {
     try {
@@ -30,6 +31,11 @@ exports.createCommande = async (req, res) => {
 
         await commande.save();
         await PanierItem.deleteMany({utilisateur: utilisateur._id});
+
+
+        await Commande.updateOne({entreprise: articles[0].entreprise, categorieCompte: ''},{
+            $inc: {solde: total}
+        });
 
         res.status(200).json(commande);
     } catch (error) {
