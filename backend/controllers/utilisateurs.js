@@ -81,7 +81,7 @@ exports.login = async (req, res) => {
     try {
         let utilisateur;
         utilisateur = await Utilisateur.findOne({ email: req.body.email });
-        if (utilisateur.statut !== "client") {
+        if (utilisateur.statut !== 'client') {
             utilisateur = await Utilisateur.findOne({ email: req.body.email }).populate('entreprise');
         }
         if (!utilisateur) {

@@ -38,7 +38,7 @@ exports.deleteCategorie = async (req, res) => {
     }
 };
 
-exports.getCategorie = async (req, res) => {
+exports.getAllCategories = async (req, res) => {
     try{
         const categories = await Categorie.find();
         res.status(200).json(categories);

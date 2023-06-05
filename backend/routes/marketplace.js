@@ -3,6 +3,7 @@ const router = express.Router();
 
 const panierItemCtrl = require('../controllers/panierItem');
 const commandeCtrl = require('../controllers/commande');
+const categorieCtrl = require('../controllers/categorie');
 
 //route pour ajouter une marchandise dans un panier
 router.post('/panier', panierItemCtrl.addMarchandise);
@@ -22,6 +23,8 @@ router.post('/commande', commandeCtrl.createCommande);
 //route pour afficher les commandes en filtrant par entreprise
 router.get('/commande/entreprise/:id', commandeCtrl.getCommandesByEntreprise);
 
-router.get('/:id', panierItemCtrl.getMarchandise);
+//route pour afficher toutes les categories de produits
+router.get('/marchandise/categories', categorieCtrl.getAllCategories);
+
 
 module.exports = router;
