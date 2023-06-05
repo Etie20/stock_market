@@ -53,6 +53,16 @@ const marchandiseSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Categorie',
         require: true
+    },
+
+    dateCreation: {
+        type: Date,
+        require: false,
+    },
+
+    updatedDate: {
+        type: Date,
+        require: false
     }
 });
 

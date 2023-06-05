@@ -15,7 +15,8 @@ exports.createEntree = async (req, res) => {
                 qr: req.body.qr,
                 description: req.body.description,
                 categorie: req.body.categorie,
-                image: req.body.image
+                image: req.body.image,
+                dateCreation: Date.now()
             });
             await marchandise.save();
         }

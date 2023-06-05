@@ -79,7 +79,11 @@ exports.signupClient = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        let utilisateur = await Utilisateur.findOne({ email: req.body.email }).populate('entreprise');
+        let utilisateur;
+        utilisateur = await Utilisateur.findOne({ email: req.body.email });
+        if (utilisateur.statut !== "client") {
+            utilisateur = await Utilisateur.findOne({ email: req.body.email }).populate('entreprise');
+        }
         if (!utilisateur) {
             return res.status(401).json({
                 success: 0,
