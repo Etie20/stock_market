@@ -24,7 +24,7 @@ router.post('/commande', commandeCtrl.createCommande);
 router.get('/commande/entreprise/:id', commandeCtrl.getCommandesByEntreprise);
 
 //route pour afficher toutes les categories de produits
-router.get('/marchandise/categories', categorieCtrl.getAllCategories);
+router.get('/categories', categorieCtrl.getAllCategories);
 
 
 module.exports = router;
