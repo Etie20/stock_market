@@ -12,9 +12,6 @@ router.get("/entreprise/:id", marchandiseCtrl.getAllMarchandiseByEntrepriseId);
 //route permettant de mettre à jour les informations d'une marchandise
 router.put("/:id", marchandiseCtrl.updateMarchandise);
 
-//route permettant de récupérer les catégories
-router.get("/categorie", categorieCtrl.getCategorie);
-
 //route permettant de créer une catégorie
 router.post("/categorie", categorieCtrl.createCategorie);
 
