@@ -79,46 +79,87 @@ exports.signupClient = async (req, res) => {
 
 exports.login = async (req, res) => {
     try {
-        let utilisateur;
-        const utilisateurCheck = await Utilisateur.findOne({ email: req.body.email });
-        if (utilisateurCheck.statut === 'client') {
-            utilisateur = await Utilisateur.findOne({ email: req.body.email });
+
+        const utilisateur = await Utilisateur.findOne({ email: req.body.email });
+
+        if (utilisateur.statut === 'client') {
+            try {
+
+                const utilisateur = await Utilisateur.findOne({ email: req.body.email });
+
+                if (!utilisateur) {
+                    return res.status(401).json({
+                        success: 0,
+                        message: 'Utilisateur non trouvé !'});
+                }
+                let valid = await bcrypt.compare(req.body.motDePasse, utilisateur.motDePasse);
+                if (!valid) {
+                    return res.status(401).json({
+                        success: 0,
+                        message: 'mot de passe incorrect !'});
+                }
+                return res.status(200).json({
+                    success: 1,
+                    token: jwt.sign(
+                        {
+                            username: utilisateur.nom,
+                            userId: utilisateur._id,
+                        },
+                        'RANDOM_TOKEN_SECRET',
+                        {expiresIn: '48h'}
+                    ),
+                });
+            } catch (error) {
+                return res.status(400).json({
+                    success: 0,
+                    message: "Invalid request body"});
+            }
         } else {
-            utilisateur = await Utilisateur.findOne({ email: req.body.email }).populate('entreprise');
+            try {
+                const utilisateur2 = await Utilisateur.findOne({ email: req.body.email }).populate('entreprise');
+                if (!utilisateur2) {
+                    return res.status(401).json({
+                        success: 0,
+                        message: 'Utilisateur non trouvé !'});
+                }
+                let valid = await bcrypt.compare(req.body.motDePasse, utilisateur2.motDePasse);
+                if (!valid) {
+                    return res.status(401).json({
+                        success: 0,
+                        message: 'mot de passe incorrect !'});
+                }
+                return res.status(200).json({
+                    success: 1,
+                    token: jwt.sign(
+                        {
+                            username: utilisateur2.nom,
+                            userId: utilisateur2._id,
+                            statut: utilisateur2.statut,
+                            role: utilisateur2.role,
+                            companyId: utilisateur2.entreprise,
+                            companyLocalisation: utilisateur2.entreprise.localisation,
+                            companyName: utilisateur2.entreprise.nom
+                        },
+                        'RANDOM_TOKEN_SECRET',
+                        {expiresIn: '48h'}
+                    ),
+                });
+            } catch (error) {
+                return res.status(400).json({
+                    success: 0,
+                    message: "Invalid request body"});
+            }
         }
 
-        if (!utilisateur) {
-            return res.status(401).json({
-                success: 0,
-                message: 'Utilisateur non trouvé !'});
-        }
-        let valid = await bcrypt.compare(req.body.motDePasse, utilisateur.motDePasse);
-        if (!valid) {
-            return res.status(401).json({
-                success: 0,
-                message: 'mot de passe incorrect !'});
-        }
-        return res.status(200).json({
-            success: 1,
-            token: jwt.sign(
-                {
-                    username: utilisateur.nom,
-                    userId: utilisateur._id,
-                    statut: utilisateur.statut,
-                    role: utilisateur.role,
-                    companyId: utilisateur.entreprise,
-                    companyLocalisation: utilisateur.entreprise.localisation,
-                    companyName: utilisateur.entreprise.nom
-                },
-                'RANDOM_TOKEN_SECRET',
-                {expiresIn: '48h'}
-            ),
-        });
     } catch (error) {
         return res.status(400).json({
             success: 0,
             message: "Invalid request body"});
     }
+};
+
+exports.loginClient = async (req, res) => {
+
 };
 
 
