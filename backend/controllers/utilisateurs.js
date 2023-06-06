@@ -80,10 +80,13 @@ exports.signupClient = async (req, res) => {
 exports.login = async (req, res) => {
     try {
         let utilisateur;
-        utilisateur = await Utilisateur.findOne({ email: req.body.email });
-        if (utilisateur.statut !== 'client') {
+        const utilisateurCheck = await Utilisateur.findOne({ email: req.body.email });
+        if (utilisateurCheck.statut === 'client') {
+            utilisateur = await Utilisateur.findOne({ email: req.body.email });
+        } else {
             utilisateur = await Utilisateur.findOne({ email: req.body.email }).populate('entreprise');
         }
+
         if (!utilisateur) {
             return res.status(401).json({
                 success: 0,
