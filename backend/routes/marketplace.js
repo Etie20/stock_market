@@ -4,6 +4,7 @@ const router = express.Router();
 const panierItemCtrl = require('../controllers/panierItem');
 const commandeCtrl = require('../controllers/commande');
 const categorieCtrl = require('../controllers/categorie');
+const stockCtrl = require('../controllers/stock');
 
 //route pour ajouter une marchandise dans un panier
 router.post('/panier', panierItemCtrl.addMarchandise);
@@ -25,6 +26,9 @@ router.get('/commande/entreprise/:id', commandeCtrl.getCommandesByEntreprise);
 
 //route pour afficher toutes les categories de produits
 router.get('/categories', categorieCtrl.getAllCategories);
+
+//route pour afficher tous les produits des stocks de toutes les entreprises pour le marketplace
+router.get('/products', stockCtrl.getAllStocks);
 
 
 module.exports = router;
