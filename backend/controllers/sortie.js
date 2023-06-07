@@ -4,8 +4,9 @@ const Stock = require('../models/Stock');
 exports.createSortie = async (req, res) => {
     try {
         const sortie = new Sortie({
-            utilisateur: req.body.userId,
-            marchandise: req.body.marchandiseId,
+            utilisateur: req.body.utilisateur,
+            marchandise: req.body.marchandise,
+            entreprise: req.body.entreprise,
             quantite: req.body.quantite,
             justification: req.body.justification,
             image: req.body.image,
