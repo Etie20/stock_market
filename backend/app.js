@@ -28,7 +28,7 @@ app.use(cors());
 
 
 // Autoriser plusieurs origines d'accès
-app.use(cors({ origin: ['http://localhost:3000', 'https://stocket-market-api.onrender.com'] }));
+app.use(cors({ origin: '*' }));
 
 //Autoriser tous les verbes HTTP
 app.use(cors({ methods: 'GET,HEAD,PUT,PATCH,POST,DELETE' }));

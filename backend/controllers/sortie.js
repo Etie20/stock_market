@@ -12,9 +12,9 @@ exports.createSortie = async (req, res) => {
             dateSortie: Date.now()
         });
         await sortie.save();
-        res.status(200).json({ message: "Sortie crée!" });
+        res.status(200).json({ success: 1, message: "Sortie crée!" });
     } catch (error) {
-        res.status(400).json({error: "Invalid request body"});
+        res.status(400).json({ success: 0, message: "Invalid request body"});
     }
 };
 
@@ -38,7 +38,7 @@ exports.validerSortie = async (req, res) => {
         res.status(200).json({message: "Sortie Validé!"});
 
     } catch (error) {
-        res.status(400).json({error: "Invalid request body"});
+        res.status(400).json({ success: 0, message: "Invalid request body"});
     }
 
 };
@@ -46,9 +46,9 @@ exports.validerSortie = async (req, res) => {
 exports.deleteSortie = async (req, res) => {
     try {
         await Sortie.deleteOne({ _id: req.params.id});
-        res.status(200).json({ message: 'Sortie supprimé!'});
+        res.status(200).json({ success: 1, message: 'Sortie supprimé!'});
     } catch (error) {
-        res.status(400).json({error: "Invalid request body"});
+        res.status(400).json({ success: 0, message: "Invalid request body"});
     }
 };
 
@@ -58,9 +58,9 @@ exports.updateSortie = async (req, res) => {
             ...req.body,
             updatedDate: Date.now()
         });
-        res.status(200).json({ message: 'Sortie mise à jour!'});
+        res.status(200).json({ success: 1, message: 'Sortie mise à jour!'});
     } catch (error) {
-        res.status(400).json({error: "Invalid request body"});
+        res.status(400).json({ success: 0, message: "Invalid request body"});
     }
 };
 
@@ -71,7 +71,7 @@ exports.getSortieByEntrepriseId = async (req, res) => {
             .populate('utilisateur');
         res.status(200).json(sorties);
     } catch (error) {
-        res.status(400).json({error: "Invalid request body"});
+        res.status(400).json({ success: 0, message: "Invalid request body"});
     }
 };
 
@@ -80,6 +80,6 @@ exports.getSortieById = async (req, res) => {
         const sortie = await Sortie.findById({ _id: req.params.id });
         res.status(200).json(sortie);
     } catch (error) {
-        res.status(400).json({error: "Invalid request body"});
+        res.status(400).json({ success: 0, message: "Invalid request body"});
     }
 };
