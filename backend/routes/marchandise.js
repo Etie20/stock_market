@@ -45,6 +45,9 @@ router.get("/sortie/entreprise/:id", sortieCtrl.getSortieByEntrepriseId);
 //route permettant de faire une sortie de marchandises
 router.post("/sortie", sortieCtrl.createSortie);
 
+//route permettant de supprimer une sortie
+router.delete("/sortie/:id", sortieCtrl.deleteSortie);
+
 //route permettant de valider une sortie de marchandise
 router.post("/sortie/valider/:id", sortieCtrl.validerSortie);
 
