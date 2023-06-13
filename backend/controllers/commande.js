@@ -39,7 +39,7 @@ exports.createCommande = async (req, res) => {
 
         res.status(200).json(commande);
     } catch (error) {
-        res.status(400).json({error: "Invalid request body"});
+        res.status(400).json({success: 0,message: "Invalid request body"});
     }
 };
 
@@ -50,10 +50,10 @@ exports.createCommande = async (req, res) => {
                 ...req.body,
                 updatedDate: Date.now()
             });
-            res.status(200).json({message: 'Commande mise à jour avec succès'});
+            res.status(200).json({success: 1,message: 'Commande mise à jour avec succès'});
 
         } catch (error) {
-            res.status(400).json({error: "Invalid request body"});
+            res.status(400).json({success: 0,message: "Invalid request body"});
         }
 
     };
@@ -61,9 +61,9 @@ exports.createCommande = async (req, res) => {
     exports.deleteCommande = async (req, res) => {
         try {
             await Commande.deleteOne({_id: req.params.id});
-            res.status(200).json({message: 'Commande supprimé avec succès'});
+            res.status(200).json({success: 1,message: 'Commande supprimé avec succès'});
         } catch (error) {
-            res.status(400).json({error: "Invalid request body"});
+            res.status(400).json({success: 0,message: "Invalid request body"});
         }
 
     };
@@ -75,6 +75,6 @@ exports.createCommande = async (req, res) => {
                 .populate('articles.marchandise', 'nom prix.vente')
             res.status(200).json(commandes);
         } catch (error) {
-            res.status(400).json({error: "Invalid request body"});
+            res.status(400).json({success: 0,message: "Invalid request body"});
         }
     };

@@ -54,4 +54,5 @@ router.post("/sortie/valider/:id", sortieCtrl.validerSortie);
 //route permettant de mettre à jour les informations d'une sortie avant sa validation
 router.put("/sortie/:id", sortieCtrl.updateSortie);
 
+
 module.exports = router;
