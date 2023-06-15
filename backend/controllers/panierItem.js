@@ -46,6 +46,7 @@ exports.getPanierByUserId = async (req, res) => {
     }
 };
 
+
 exports.getPanierElementById = async (req, res) => {
     try {
         const marchandise = await PanierItem.findById({ _id: req.params.id });

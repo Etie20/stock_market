@@ -6,7 +6,7 @@ const Compte = require('../models/Compte');
 exports.createCommande = async (req, res) => {
     try {
         const utilisateur = await Utilisateur.findById(req.body.utilisateur);
-        const panierItems = await PanierItem.find({utilisateur: req.body.utilisateur}).populate('marchandise');
+        const panierItems = await PanierItem.find({utilisateur: req.body.utilisateur, entreprise: req.params.id}).populate('marchandise');
 
         const articles = panierItems.map(panierItem => {
             return {
@@ -30,7 +30,7 @@ exports.createCommande = async (req, res) => {
         });
 
         await commande.save();
-        await PanierItem.deleteMany({utilisateur: utilisateur._id});
+        await PanierItem.deleteMany({utilisateur: utilisateur._id, entreprise: req.params.id});
 
 
         await Commande.updateOne({entreprise: articles[0].entreprise, categorieCompte: ''},{
