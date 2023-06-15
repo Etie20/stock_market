@@ -37,7 +37,7 @@ exports.createCommande = async (req, res) => {
             $inc: {solde: total}
         });
 
-        res.status(200).json(commande);
+        res.status(200).json({success: 1, message: 'Commande effectuée avec succès'});
     } catch (error) {
         res.status(400).json({success: 0,message: "Invalid request body"});
     }
