@@ -19,7 +19,7 @@ router.put('/panier/:id', panierItemCtrl.updateMarchandise);
 router.get('/panier/:id', panierItemCtrl.getPanierByUserId);
 
 //route pour créer une commande
-router.post('/commande', commandeCtrl.createCommande);
+router.post('/commande/:id', commandeCtrl.createCommande);
 
 //route pour afficher les commandes en filtrant par entreprise
 router.get('/commande/entreprise/:id', commandeCtrl.getCommandesByEntreprise);
