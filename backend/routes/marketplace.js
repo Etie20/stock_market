@@ -21,6 +21,9 @@ router.get('/panier/:id', panierItemCtrl.getPanierByUserId);
 //route pour créer une commande
 router.post('/commande/:id', commandeCtrl.createCommande);
 
+//route pour valider une commande
+router.post('/commande/valider/:id', commandeCtrl.validerCommande);
+
 //route pour afficher les commandes en filtrant par entreprise
 router.get('/commande/entreprise/:id', commandeCtrl.getCommandesByEntreprise);
 

@@ -83,9 +83,10 @@ exports.createCommande = async (req, res) => {
 
     exports.getCommandesByEntreprise = async (req, res) => {
         try {
-            const commandes = await Commande.find({"articles.entreprise": req.params.id})
-                .populate('utilisateur', 'nom prenom')
-                .populate('articles.marchandise', 'nom prix.vente')
+            const commandes = await Commande.find({entreprise: req.params.id})
+                .populate('utilisateur')
+                .populate('entreprise')
+                .populate('articles.marchandise')
             res.status(200).json(commandes);
         } catch (error) {
             res.status(400).json({success: 0,message: "Invalid request body"});
