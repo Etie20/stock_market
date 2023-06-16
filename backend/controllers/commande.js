@@ -33,10 +33,6 @@ exports.createCommande = async (req, res) => {
         await PanierItem.deleteMany({utilisateur: utilisateur._id, entreprise: req.params.id});
 
 
-        await Commande.updateOne({entreprise: articles[0].entreprise, categorieCompte: ''},{
-            $inc: {solde: total}
-        });
-
         res.status(200).json({success: 1, message: 'Commande effectuée avec succès'});
     } catch (error) {
         res.status(400).json({success: 0,message: "Invalid request body"});
@@ -57,6 +53,23 @@ exports.createCommande = async (req, res) => {
         }
 
     };
+
+    exports.validerCommande = async (req, res) => {
+        try {
+            await Commande.updateOne({_id: req.params.id}, {
+                validation: true,
+                updatedDate: Date.now()
+            });
+            res.status(200).json({success: 1,message: 'Commande validée avec succès'});
+            const commande = await  Commande.findOne({_id: req.params.id});
+            await Compte.updateOne({entreprise: commande.entreprise}, {
+                $inc: {solde: commande.total}
+            });
+
+        } catch (e) {
+            res.status(400).json({success: 0,message: "Invalid request body"});
+        }
+    }
 
     exports.deleteCommande = async (req, res) => {
         try {

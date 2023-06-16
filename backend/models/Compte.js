@@ -11,6 +11,11 @@ const compteSchema = mongoose.Schema({
         default: 0,
     },
 
+    depenses: {
+        type: Number,
+        default: 0
+    },
+
     devise: {
         type: String,
         enum: ['XAF', 'EUR', 'USD'],

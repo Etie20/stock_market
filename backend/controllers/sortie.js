@@ -1,5 +1,6 @@
 const Sortie = require('../models/Sortie');
 const Stock = require('../models/Stock');
+const Compte = require('../models/Compte');
 
 exports.createSortie = async (req, res) => {
     try {
@@ -36,6 +37,9 @@ exports.validerSortie = async (req, res) => {
             {
                 new: true
             } );
+        await Compte.updateOne({entreprise: sorties.entreprise}, {
+            $inc: {depenses: sorties.marchandise.prix.vente * sorties.quantite}
+        });
         res.status(200).json({message: "Sortie Validé!"});
 
     } catch (error) {

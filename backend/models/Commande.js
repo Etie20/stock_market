@@ -55,6 +55,11 @@ const commandeSchema = mongoose.Schema({
         type: String,
         enum: ['En attente', 'En cours de livraison', 'Livre'],
         default: 'En attente'
+    },
+    //validation de la commande
+    validation: {
+        type: Boolean,
+        default: false
     }
 });
 
