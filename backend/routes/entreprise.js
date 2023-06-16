@@ -12,7 +12,7 @@ router.put('/:id', entrepriseCtrl.updateEntrepriseInfo);
 router.get('/stock/:id', stockCtrl.getStockByEntrepriseId);
 
 //router pour récupérer les informations du compte de l'entreprise
-router.get('/compte/:id', compteCtrl.getCompteByentreprise);
+router.get('/compte/:id', compteCtrl.getCompteByEntreprise);
 
 module.exports = router;
 

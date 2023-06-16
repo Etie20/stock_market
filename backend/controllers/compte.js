@@ -6,17 +6,17 @@ exports.addCompte = async (req, res) => {
             ...req.body
         });
         await compte.save();
-        res.statut(200).json({success: 0, message: 'compte enregistré'});
+        res.status(200).json({success: 0, message: 'compte enregistré'});
     } catch (e) {
-        res.statut(400).json({success: 0, message: 'invalid request body!'});
+        res.status(400).json({success: 0, message: 'invalid request body!'});
     }
 }
 
-exports.getCompteByentreprise = async (req, res) => {
+exports.getCompteByEntreprise = async (req, res) => {
     try {
         const compte = await Compte.findOne({ _id: req.params.id});
-        res.statut(200).json(compte);
+        res.status(200).json(compte);
     } catch (e) {
-        res.statut(400).json({success: 0, message: 'invalid request body!'});
+        res.status(400).json({success: 0, message: 'invalid request body!'});
     }
 }
