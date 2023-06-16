@@ -14,7 +14,7 @@ exports.addCompte = async (req, res) => {
 
 exports.getCompteByEntreprise = async (req, res) => {
     try {
-        const compte = await Compte.findOne({ _id: req.params.id});
+        const compte = await Compte.findOne({ entreprise: req.params.id});
         res.status(200).json(compte);
     } catch (e) {
         res.status(400).json({success: 0, message: 'invalid request body!'});
