@@ -37,7 +37,7 @@ exports.validerSortie = async (req, res) => {
         await Compte.updateOne({entreprise: sorties.entreprise}, {
             $inc: {depenses: sorties.marchandise.prix.vente * sorties.quantite}
         });
-        res.status(200).json(sorties);
+        res.status(200).json({success: 1, message: "Sortie Validé!"});
 
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
