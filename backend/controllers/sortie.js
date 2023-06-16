@@ -28,20 +28,17 @@ exports.validerSortie = async (req, res) => {
         if (!sorties) {
             res.status(400).json({message: "Marchandise inexistante"});
         }
-        await Stock.findByIdAndUpdate(
-            sorties.marchandise._id,
+        await Stock.updateOne(
+            {marchandise: sorties.marchandise._id},
             {
                 updatedDate: Date.now(),
                 $inc: {quantiteTotale: -sorties.quantite}
-            },
-            {
-                new: true
-            } );
+            });
         await Compte.updateOne({entreprise: sorties.entreprise}, {
-            $inc: {depenses: sorties.quantite}
+            $inc: {depenses: sorties.marchandise.prix.vente}
         });
-        //sorties.marchandise.prix.vente
-        res.status(200).json({message: "Sortie Validé!"});
+        //sorties.quantite
+        res.status(200).json(sorties);
 
     } catch (error) {
         res.status(400).json({ success: 0, message: "Invalid request body"});
