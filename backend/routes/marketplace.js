@@ -27,6 +27,9 @@ router.post('/commande/valider/:id', commandeCtrl.validerCommande);
 //route pour afficher les commandes en filtrant par entreprise
 router.get('/commande/entreprise/:id', commandeCtrl.getCommandesByEntreprise);
 
+//route pour afficher les commandes en filtrant par utilisateur
+router.get('/commande/utilisateur/:id', commandeCtrl.getCommandesByUserId)
+
 //route pour afficher toutes les categories de produits
 router.get('/categories', categorieCtrl.getAllCategories);
 
