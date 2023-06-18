@@ -5,6 +5,7 @@ const panierItemCtrl = require('../controllers/panierItem');
 const commandeCtrl = require('../controllers/commande');
 const categorieCtrl = require('../controllers/categorie');
 const stockCtrl = require('../controllers/stock');
+const punycode = require("punycode");
 
 //route pour ajouter une marchandise dans un panier
 router.post('/panier', panierItemCtrl.addMarchandise);
@@ -20,6 +21,9 @@ router.get('/panier/:id', panierItemCtrl.getPanierByUserId);
 
 //route pour créer une commande
 router.post('/commande/:id', commandeCtrl.createCommande);
+
+//route pour mettre à jour une commande
+router.put('/commande/:id', commandeCtrl.updateCommande)
 
 //route pour valider une commande
 router.post('/commande/valider/:id', commandeCtrl.validerCommande);
