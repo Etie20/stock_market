@@ -23,7 +23,10 @@ router.get('/panier/:id', panierItemCtrl.getPanierByUserId);
 router.post('/commande/:id', commandeCtrl.createCommande);
 
 //route pour mettre à jour une commande
-router.put('/commande/:id', commandeCtrl.updateCommande)
+router.put('/commande/:id', commandeCtrl.updateCommande);
+
+//route pour supprimer une commande
+router.delete('/commande/:id', commandeCtrl.deleteCommande);
 
 //route pour valider une commande
 router.post('/commande/valider/:id', commandeCtrl.validerCommande);
