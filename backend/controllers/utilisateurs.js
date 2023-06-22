@@ -106,7 +106,7 @@ exports.login = async (req, res) => {
                             userId: utilisateur._id,
                             email: utilisateur.email,
                             image: utilisateur.image,
-                            statut: utilisateur.statut
+                            statut: utilisateur.statut,
                         },
                         'RANDOM_TOKEN_SECRET',
                         {expiresIn: '48h'}
