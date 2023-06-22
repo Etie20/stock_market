@@ -12,7 +12,8 @@ exports.signup = async (req, res) => {
         if (!entreprise) {
             entreprise = new Entreprise({
                 nom: req.body.nomEntreprise,
-                localisation: req.body.localisation
+                localisation: req.body.localisation,
+                logo: req.body.logo
             });
             await entreprise.save();
             entrepriseId = entreprise._id;
@@ -103,6 +104,8 @@ exports.login = async (req, res) => {
                         {
                             username: utilisateur.nom,
                             userId: utilisateur._id,
+                            email: utilisateur.email,
+                            image: utilisateur.image,
                             statut: utilisateur.statut
                         },
                         'RANDOM_TOKEN_SECRET',
@@ -123,6 +126,8 @@ exports.login = async (req, res) => {
                     token: jwt.sign(
                         {
                             username: utilisateur2.nom,
+                            email: utilisateur2.email,
+                            image: utilisateur2.image,
                             userId: utilisateur2._id,
                             statut: utilisateur2.statut,
                             role: utilisateur2.role,

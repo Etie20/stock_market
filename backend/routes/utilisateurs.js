@@ -1,19 +1,20 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../middleware/auth');
 
 const utilisateurCtrl = require('../controllers/utilisateurs');
 
 //route pour afficher tous les utilisateurs en filtrant par l'id de l'entreprise
-router.get('/entreprise/:id', utilisateurCtrl.getUsersByEntrepriseId);
+router.get('/entreprise/:id', auth, utilisateurCtrl.getUsersByEntrepriseId);
 
 //route pour afficher un utilisateur en filtrant par son id
-router.get('/:id', utilisateurCtrl.getUserById);
+router.get('/:id', auth, utilisateurCtrl.getUserById);
 
 //route pour mettre à jour les informations d'un utilisateur
-router.put('/:id', utilisateurCtrl.updateUsers);
+router.put('/:id', auth, utilisateurCtrl.updateUsers);
 
 //route pour supprimer un utilisateur
-router.delete('/:id', utilisateurCtrl.deleteUser);
+router.delete('/:id', auth, utilisateurCtrl.deleteUser);
 
 //route de creation d'un nouvel utilisateur pour la gestion de stock
 router.post('/auth/signup', utilisateurCtrl.signup);

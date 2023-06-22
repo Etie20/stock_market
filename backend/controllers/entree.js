@@ -1,6 +1,7 @@
 const Entree = require('../models/Entree');
 const Marchandise = require('../models/Marchandise');
 const Stock = require('../models/Stock');
+const Compte = require("../models/Compte");
 
 exports.createEntree = async (req, res) => {
     try {
@@ -68,6 +69,9 @@ exports.validerEntree = async (req, res) => {
             {
                 new: true
             });
+        await Compte.updateOne({entreprise: entrees.entreprise}, {
+            $inc: {depenses: entrees.marchandise.prix.achat * entrees.quantite}
+        });
         res.status(200).json({ success: 1, message: "Entrée Validé!"});
 
     } catch (error) {
