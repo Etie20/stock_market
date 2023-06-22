@@ -65,7 +65,7 @@ exports.validerCommande = async (req, res) => {
         await Compte.updateOne({entreprise: commande.entreprise}, {
             $inc: {solde: commande.total}
         });
-        for (let article in commande.articles) {
+        for (let article of commande.articles) {
             await Stock.updateOne({marchandise: article.marchandise},{
                 $inc: {quantiteTotale: -article.quantite}
             });

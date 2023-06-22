@@ -60,14 +60,11 @@ exports.validerEntree = async (req, res) => {
         if (!entrees) {
             res.status(404).json({ success: 0, message: "Marchandise inexistante"});
         }
-        await Stock.findByIdAndUpdate(
-            entrees.marchandise._id,
+        await Stock.updateOne(
+            {marchandise: entrees.marchandise._id},
             {
                 updatedDate: Date.now(),
                 $inc: {quantiteTotale: entrees.quantite},
-            },
-            {
-                new: true
             });
         await Compte.updateOne({entreprise: entrees.entreprise}, {
             $inc: {depenses: entrees.marchandise.prix.achat * entrees.quantite}
