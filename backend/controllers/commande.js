@@ -61,12 +61,12 @@ exports.validerCommande = async (req, res) => {
             statut: 'Livre',
             updatedDate: Date.now()
         });
-        const commande = await  Commande.findOne({_id: req.params.id});
+        const commande = await  Commande.findOne({_id: req.params.id}).populate('articles.marchandise');
         await Compte.updateOne({entreprise: commande.entreprise}, {
             $inc: {solde: commande.total}
         });
         for (let article of commande.articles) {
-            await Stock.updateOne({marchandise: article.marchandise},{
+            await Stock.updateOne({marchandise: article.marchandise._id},{
                 $inc: {quantiteTotale: -article.quantite}
             });
         }
