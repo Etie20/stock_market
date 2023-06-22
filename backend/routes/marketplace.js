@@ -11,13 +11,19 @@ const punycode = require("punycode");
 router.post('/panier', panierItemCtrl.addMarchandise);
 
 //route pour supprimer un produit du panier
-router.delete('/panier/:id', panierItemCtrl.deleteMarchandise);
+router.delete('/panier/:id', panierItemCtrl.deleteItem);
+
+//route pour supprimer le panier d'une entreprise
+router.delete('/panier/entreprise/:id', panierItemCtrl.deleteCompanyCart)
 
 //route pour mettre à jour les informations de la marchandise dans le panier
-router.put('/panier/:id', panierItemCtrl.updateMarchandise);
+router.put('/panier/:id', panierItemCtrl.updateCart);
 
 //route pour afficher toutes les marchandises du panier d'un utilisateur
 router.get('/panier/:id', panierItemCtrl.getPanierByUserId);
+
+//route pour afficher toutes les marchandises du panier d'un utilisateur en fonction de l'entreprise
+router.get('/panier/:id/entreprise/:_id', panierItemCtrl.getUserPanierByCompanyId);
 
 //route pour créer une commande
 router.post('/commande/:id', commandeCtrl.createCommande);

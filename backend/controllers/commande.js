@@ -58,7 +58,7 @@ exports.createCommande = async (req, res) => {
         try {
             await Commande.updateOne({_id: req.params.id}, {
                 validation: true,
-                statut: 'En cours de livraison',
+                statut: 'Livre',
                 updatedDate: Date.now()
             });
             res.status(200).json({success: 1,message: 'Commande validée avec succès'});

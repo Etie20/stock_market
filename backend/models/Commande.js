@@ -53,7 +53,7 @@ const commandeSchema = mongoose.Schema({
 // Le statut de la commande
     statut: {
         type: String,
-        enum: ['En attente', 'En cours de livraison', 'Livre'],
+        enum: ['En attente', 'Livre'],
         default: 'En attente'
     },
     //validation de la commande

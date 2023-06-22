@@ -14,16 +14,26 @@ exports.addMarchandise = async (req, res) => {
     }
 };
 
-exports.deleteMarchandise = async (req, res) => {
+exports.deleteItem = async (req, res) => {
     try {
         await PanierItem.deleteOne({ _id: req.params.id });
-        res.status(200).json({ success: 1, message: 'Panier supprimé avec succès'});
+        res.status(200).json({ success: 1, message: 'Produit supprimé du panier supprimé avec succès'});
     } catch (error) {
         res.status(400).json({ success: 0, error: "Invalid request body"});
     }
 }
 
-exports.updateMarchandise = async (req, res) => {
+
+exports.deleteCompanyCart = async (req, res) => {
+    try {
+        await PanierItem.deleteMany({ entreprise: req.params.id, utilisateur: req.body.userId });
+        res.status(200).json({ success: 1, message: 'Panier supprimé avec succès'})
+    } catch (error) {
+        res.status(400).json({ success: 0, error: "Invalid request body"});
+    }
+}
+
+exports.updateCart = async (req, res) => {
     try {
         await PanierItem.updateOne({ _id: req.params.id },{
             ...req.body,
@@ -45,6 +55,17 @@ exports.getPanierByUserId = async (req, res) => {
         res.status(400).json({ success: 0, error: "Invalid request body"});
     }
 };
+
+exports.getUserPanierByCompanyId = async (req, res) => {
+    try {
+        const panier = await PanierItem.find({ utilisateur: req.params.id, entreprise: req.params._id})
+            .populate('marchandise')
+            .populate('entreprise');
+        res.status(200).json(panier);
+    } catch (e) {
+        res.status(400).json({ success: 0, error: "Invalid request body"});
+    }
+}
 
 
 exports.getPanierElementById = async (req, res) => {
