@@ -115,7 +115,8 @@ exports.login = async (req, res) => {
             } catch (error) {
                 return res.status(400).json({
                     success: 0,
-                    message: "Invalid request body"});
+                    message: error
+                });
             }
         } else {
 
